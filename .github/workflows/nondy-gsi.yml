@@ -42,24 +42,18 @@ jobs:
        - name: Download Stock Rom & Generate GSI
          run: sudo ./ErfanGSIs/url2GSI.sh --ab $ROM_URL $ROM_NAME
          
-       - name: Zip and upload 
+       - name: Zip  
          run: |
               sudo chmod -R 777 ErfanGSIs
               cd ErfanGSIs/output
-              7z a $ZIP_NAME-GSI-AB.7z *-AB-*.img
-              expect -c " 
-              spawn sftp ${{ secrets.SFUSER }}@frs.sourceforge.net
-              expect \"Password\"        
-              send \"${{ secrets.SFPASS }}\r\"
-              expect \"sftp> \"
-              send \"cd ${{ secrets.SFDIR }}\r\"
-              set timeout -1
-              send \"put $ZIP_NAME-GSI-AB.7z\r\"
-              expect \"Uploading\"
-              expect \"100%\"
-              expect \"sftp>\"
-              send \"bye\r\"
-              interact"
+              7z a $ZIP_NAME-CHANNEL.7z *-AB-*.img
+              
+       - name: Artifacts
+         uses: actions/upload-artifact@v2
+         with:
+           name: Image
+           path: ErfanGSIs/output/$ZIP_NAME-CHANNEL.7z
+          
        - name: Print build info
          run: |
               cat ErfanGSIs/output/*-AB-*.txt
