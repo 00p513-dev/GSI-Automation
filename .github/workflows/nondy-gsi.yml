@@ -3,10 +3,10 @@ name: Building GSI..
 on: [push]
 
 env:
-  ROM_URL: https://otafsg1.h2os.com/patch/amazone2/GLO/OnePlus5TOxygen/OnePlus5TOxygen_43.J.69_GLO_069_2010292144/OnePlus5TOxygen_43_OTA_069_all_2010292144_de4a6fa.zip
-  ROM_NAME: OxygenOS
-  ZIP_NAME: Oxygen-test
-  TZ: Asia/Kolkata
+  ROM_URL: https://download.meizu.com/Firmware/Flyme/16s/8.20.8.18/cn_daily/20200818100123/28120e89/update.zip
+  ROM_NAME: Flyme
+  ZIP_NAME: Flyme-test
+  TZ: Europe/London
 jobs:
   build:
     runs-on: ubuntu-18.04
@@ -31,7 +31,7 @@ jobs:
 
        
        - name: Clone ErfanGSI Source Code
-         run: git clone --recurse-submodules https://github.com/Area69Lab/ErfanGSIs
+         run: git clone --recurse-submodules https://github.com/00p513-dev/ErfanGSIs-channel
        
        - name: Setting up ErfanGSI requirements
          run: |
@@ -40,30 +40,9 @@ jobs:
               sudo bash setup.sh
        
        - name: Download Stock Rom & Generate GSI
-         run: sudo ./ErfanGSIs/url2GSI.sh $ROM_URL $ROM_NAME
-       
-       - name: Zip Aonly and upload 
-         run: |
-              mkdir final
-              sudo chmod -R 777 ErfanGSIs/output
-              cd ErfanGSIs/output
-              7z a $ZIP_NAME-GSI-Aonly.7z *-Aonly-*.img
-              expect -c " 
-              spawn sftp ${{ secrets.SFUSER }}@frs.sourceforge.net
-              expect \"yes/no\"
-              send \"yes\r\"
-              expect \"Password\"        
-              send \"${{ secrets.SFPASS }}\r\"
-              expect \"sftp> \"
-              send \"cd ${{ secrets.SFDIR }}\r\"
-              set timeout -1
-              send \"put $ZIP_NAME-GSI-Aonly.7z\r\"
-              expect \"Uploading\"
-              expect \"100%\"
-              expect \"sftp>\"
-              send \"bye\r\"
-              interact"      
-       - name: Zip AB and upload 
+         run: sudo ./ErfanGSIs/url2GSI.sh --ab $ROM_URL $ROM_NAME
+         
+       - name: Zip and upload 
          run: |
               cd ErfanGSIs/output
               7z a $ZIP_NAME-GSI-AB.7z *-AB-*.img
@@ -82,6 +61,6 @@ jobs:
               interact"
        - name: Print build info
          run: |
-              cat ErfanGSIs/output/*-Aonly-*.txt
+              cat ErfanGSIs/output/*-AB-*.txt
          
             
