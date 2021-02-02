@@ -54,6 +54,7 @@ jobs:
           
        - name: Print build info
          run: |
+              cat ErfanGSIs/treet.txt
               cat ErfanGSIs/output/*-AB-*.txt
          
             
