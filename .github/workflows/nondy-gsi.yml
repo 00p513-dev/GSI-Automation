@@ -44,6 +44,7 @@ jobs:
          
        - name: Zip and upload 
          run: |
+              chmod -R 777 ErfanGSIs
               cd ErfanGSIs/output
               7z a $ZIP_NAME-GSI-AB.7z *-AB-*.img
               expect -c " 
