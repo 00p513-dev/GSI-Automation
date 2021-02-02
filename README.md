@@ -1,6 +1,6 @@
 # GSI-Automation 
 
-## This is a script to build GSIs with Erfan's tool with Github Star. ##
+## This is a script to build GSIs with my fork of Erfan's tool on GitHub Actions. ##
 ## Instructions : ##
 ### Firstly, fork this repo. ###
 ### After that, edit build_ErfanGSIs.yml，Change ROM_URL into your base FW link (Direct link plox)；Change ROM_NAME to you rom name, e.g. OxygenOS, Generic, etc.  ###
