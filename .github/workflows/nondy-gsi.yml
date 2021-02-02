@@ -50,7 +50,7 @@ jobs:
          uses: actions/upload-artifact@v2
          with:
            name: Image
-           path: ErfanGSIs/output/$ZIP_NAME-CHANNEL.7z
+           path: ErfanGSIs/output/*-CHANNEL.7z
           
        - name: Print build info
          run: |
