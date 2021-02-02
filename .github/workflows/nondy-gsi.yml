@@ -3,9 +3,9 @@ name: Building GSI..
 on: [push]
 
 env:
-  ROM_URL: https://bigota.d.miui.com/V12.0.1.0.QCPINXM/miui_OLIVELITEINGlobal_V12.0.1.0.QCPINXM_8c38b3bd4c_10.0.zip
-  ROM_NAME: MIUI
-  ZIP_NAME: MIUI-a64-test
+  ROM_URL: https://download.meizu.com/Firmware/Flyme/16s/8.20.8.18/cn_daily/20200818100123/28120e89/update.zip
+  ROM_NAME: Flyme
+  ZIP_NAME: Flyme-test
   TZ: Europe/London
 jobs:
   build:
